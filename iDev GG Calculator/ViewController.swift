@@ -69,7 +69,7 @@ class ViewController: UIViewController {
             return
         }
         
-        // Round the value to two deimal places and put it into labl
+        // Round the value to two deimal places and put it into label
         gNeedLabel.text = String(format: "%.2f", gNeeded) + "%"
         errorLabel.isHidden = true
         
