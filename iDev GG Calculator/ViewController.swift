@@ -32,19 +32,19 @@ class ViewController: UIViewController {
          - TextField text is optional
          - Constants allow use to save memory and optimize since we won't be changes the value of the strings
         */
-        guard let cGrade = cGradeField.text else {
+        guard let cGrade = cGradeField.text, !cGrade.isEmpty else {
             errorLabel.text = "Please enter a valid current grade"
             errorLabel.isHidden = false
             return
         }
         
-        guard let fWeight = fWeightField.text else {
+        guard let fWeight = fWeightField.text, !fWeight.isEmpty else {
             errorLabel.text = "Please enter a valid final weight"
             errorLabel.isHidden = false
             return
         }
         
-        guard let gGrade = gGradeField.text else {
+        guard let gGrade = gGradeField.text, !gGrade.isEmpty else {
             errorLabel.text = "Please enter a valid goal grade"
             errorLabel.isHidden = false
             return
@@ -58,8 +58,11 @@ class ViewController: UIViewController {
         // Here we calculate the users current unweighted grade before taking the final
         let uWGrade = ((100 - fWeightVal) / 100) * cGradeVal
         
-        // Here we calculate the grade the user needs
-        let gNeeded = ((gGradeVal - uWGrade) / fWeightVal) * 100
+        // Here we calculate the difference in the grade the user wants and what they have. Say they want a 90 but they have an 80 right now. This would be 10
+        let gradeDiff = (gGradeVal - uWGrade)
+        
+        // Here we calculate the grade the user needs. So we divide the previous value say 10 by the final weight which could be 20. This would give us .5 which then multiplied by 100 would give us a precentage
+        let gNeeded = (gradeDiff / fWeightVal) * 100
         
         // If the user already has an unweighted grade over or equal to the grade they wish to receive
         if gNeeded <= 0 {
